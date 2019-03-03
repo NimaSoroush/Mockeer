@@ -1,0 +1,53 @@
+{
+  "name": "mockeer",
+  "version": "0.0.1",
+  "description": "mocking puppeteer network calls",
+  "main": "src/index.js",
+  "keywords": [
+    "puppeteer",
+    "playback"
+  ],
+  "author": "Nima Soroush",
+  "license": "ISC",
+  "dependencies": {
+    "check-types": "^7.4.0",
+    "filenamify": "^2.1.0",
+    "is-image": "^2.0.0",
+    "puppeteer": "^1.10.0",
+    "type-detect": "^4.0.8",
+    "url-parse": "^1.4.4"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "jest --testPathIgnorePatterns=int.test",
+    "test:integration": "jest --testPathPattern=int.test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:NimaSoroush/mockeer.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "devDependencies": {
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-prefer-object-spread": "^1.2.1",
+    "eslint-plugin-react": "7.11.0",
+    "jest": "^23.5.0",
+    "jest-cli": "^23.6.0",
+    "jsdoc": "^3.4.3"
+  },
+  "jest": {
+    "rootDir": "src",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "engines": {
+    "node": ">=8.9"
+  }
+}

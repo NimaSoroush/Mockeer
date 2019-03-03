@@ -1,3 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Recorder: on \`response\` single page will not write snapshot when resource is image and replaceImage=false 1`] = `"[]"`;
+
 exports[`Recorder: on \`response\` single page writes correct snapshot 1`] = `"[{\\"url\\":\\"http://www.example.com/x/?foo=bar\\",\\"fullPath\\":\\"http://www.example.com/x/\\",\\"minimalPath\\":\\"http://www.example.com/x\\",\\"query\\":{\\"foo\\":\\"bar\\"},\\"headers\\":{\\"content-type\\":\\"application/json\\"},\\"status\\":200,\\"method\\":\\"GET\\",\\"body\\":\\"{}\\"}]"`;
+
+exports[`Recorder: on \`response\` single page writes correct snapshot when resource is image and replaceImage=true 1`] = `"[{\\"url\\":\\"http://www.example.com/x.jpg?foo=bar\\",\\"fullPath\\":\\"http://www.example.com/x.jpg\\",\\"minimalPath\\":\\"http://www.example.com\\",\\"query\\":{\\"foo\\":\\"bar\\"},\\"headers\\":{\\"content-type\\":\\"image/svg+xml\\",\\"content-length\\":98},\\"status\\":200,\\"method\\":\\"GET\\",\\"body\\":\\"<svg xmlns=\\\\\\"http://www.w3.org/2000/svg\\\\\\" preserveAspectRatio=\\\\\\"none\\\\\\" viewBox=\\\\\\"0 0 1 1\\\\\\"><path d=\\\\\\"M0,0h1v1H0\\\\\\" fill=\\\\\\"#888\\\\\\" fill-opacity=\\\\\\"0.1\\\\\\"/></svg>\\"}]"`;

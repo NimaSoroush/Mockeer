@@ -13,9 +13,7 @@ const getScope = (url, fixtures) => {
     const objectFound = fixtures[elementPos];
     if (objectFound) {
       const { body } = objectFound;
-      let isImg;
-      try { isImg = isImage(objectFound); } catch (e) { /* do nothing */ }
-      if (isImg && path.extname(objectFound.url) !== '.svg') {
+      if (isImage(objectFound.fullPath) && path.extname(objectFound.url) !== '.svg') {
         objectFound.headers['content-type'] = svgContentTypeHeader;
         objectFound.headers['content-length'] = svgContentLength;
       }

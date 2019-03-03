@@ -30,8 +30,7 @@ const handleRecordMode = async ({
       scope.headers = response.headers();
       scope.status = response.status();
       scope.method = response.request().method();
-      let isImg;
-      try { isImg = isImage(scope); } catch (e) { /* do nothing */ }
+      const isImg = isImage(scope.fullPath);
       if (!isImg) {
         scope.body = await response.text();
         scopes.push(scope);

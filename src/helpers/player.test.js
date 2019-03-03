@@ -19,13 +19,16 @@ jest.mock('fs', () => ({
   }]`),
 }));
 
+const configuration = sanitiseConfiguration({ fixtureName: 'fixture-name' });
+
 describe('Player:', () => {
   it('calls handlePlayMode with correct parameters', async () => {
     const page = {
       setRequestInterception: jest.fn(),
       on: jest.fn(),
     };
-    await player({ browser: Object, page, config: sanitiseConfiguration() });
+    const modifiedConfig = ({ ...configuration, ...{ page, replaceImage: false } });
+    await player({ browser: Object, config: modifiedConfig });
     expect(fs.readFileSync).toHaveBeenCalledWith(expect.stringContaining('__fixtures__'));
     expect(page.setRequestInterception).toHaveBeenCalledWith(true);
     expect(page.on).toHaveBeenCalledWith('request', expect.any(Function));
@@ -41,7 +44,8 @@ describe('Player:', () => {
         setRequestInterception: jest.fn(),
         on: jest.fn((type, fn) => fn(request)),
       };
-      await player({ browser: Object, page, config: sanitiseConfiguration() });
+      const modifiedConfig = ({ ...configuration, ...{ page, replaceImage: false } });
+      await player({ browser: Object, config: modifiedConfig });
       expect(fs.readFileSync).toHaveBeenCalledWith(expect.stringContaining('__fixtures__'));
       expect(page.setRequestInterception).toHaveBeenCalledWith(true);
       expect(page.on).toHaveBeenCalledWith('request', expect.any(Function));
@@ -57,8 +61,8 @@ describe('Player:', () => {
         setRequestInterception: jest.fn(),
         on: jest.fn((type, fn) => fn(request)),
       };
-      const modifiedConfig = ({ ...sanitiseConfiguration(), ...{ allowImageRecourses: true } });
-      await player({ browser: Object, page, config: modifiedConfig });
+      const modifiedConfig = ({ ...configuration, ...{ page, allowImageRecourses: true } });
+      await player({ browser: Object, config: modifiedConfig });
       expect(fs.readFileSync).toHaveBeenCalledWith(expect.stringContaining('__fixtures__'));
       expect(page.setRequestInterception).toHaveBeenCalledWith(true);
       expect(page.on).toHaveBeenCalledWith('request', expect.any(Function));
@@ -69,16 +73,19 @@ describe('Player:', () => {
         resourceType: () => 'image',
         url: () => 'http://www.example.com/x/?foo=bar',
         respond: jest.fn(),
+        continue: jest.fn(),
       };
       const page = {
         setRequestInterception: jest.fn(),
         on: jest.fn((type, fn) => fn(request)),
       };
-      await player({ browser: Object, page, config: sanitiseConfiguration() });
+      const modifiedConfig = ({ ...configuration, ...{ page, allowImageRecourses: true } });
+      await player({ browser: Object, config: modifiedConfig });
       expect(fs.readFileSync).toHaveBeenCalledWith(expect.stringContaining('__fixtures__'));
       expect(page.setRequestInterception).toHaveBeenCalledWith(true);
       expect(page.on).toHaveBeenCalledWith('request', expect.any(Function));
-      expect(request.respond).toMatchSnapshot();
+      expect(request.respond).not.toHaveBeenCalled();
+      expect(request.continue).toHaveBeenCalled();
     });
   });
   describe('on `request` multiple pages', () => {
@@ -95,7 +102,7 @@ describe('Player:', () => {
       const browser = {
         pages: () => [page, page],
       };
-      await player({ browser, page: undefined, config: sanitiseConfiguration() });
+      await player({ browser, config: configuration });
       expect(fs.readFileSync).toHaveBeenCalledWith(expect.stringContaining('__fixtures__'));
       expect(page.setRequestInterception).toHaveBeenCalledTimes(2);
       expect(page.setRequestInterception).toHaveBeenCalledWith(true);
@@ -116,8 +123,8 @@ describe('Player:', () => {
       const browser = {
         pages: () => [page, page],
       };
-      const modifiedConfig = ({ ...sanitiseConfiguration(), ...{ allowImageRecourses: true } });
-      await player({ browser, page: undefined, config: modifiedConfig });
+      const modifiedConfig = ({ ...configuration, ...{ allowImageRecourses: true } });
+      await player({ browser, config: modifiedConfig });
       expect(fs.readFileSync).toHaveBeenCalledWith(expect.stringContaining('__fixtures__'));
       expect(page.setRequestInterception).toHaveBeenCalledTimes(2);
       expect(page.setRequestInterception).toHaveBeenCalledWith(true);
@@ -138,7 +145,7 @@ describe('Player:', () => {
       const browser = {
         pages: () => [page, page],
       };
-      await player({ browser, page: undefined, config: sanitiseConfiguration() });
+      await player({ browser, config: configuration });
       expect(fs.readFileSync).toHaveBeenCalledWith(expect.stringContaining('__fixtures__'));
       expect(page.setRequestInterception).toHaveBeenCalledTimes(2);
       expect(page.setRequestInterception).toHaveBeenCalledWith(true);

@@ -52,7 +52,7 @@ describe('Recorder:', () => {
       expect(response.text).toHaveBeenCalled();
       expect(fs.appendFileSync.mock.calls[0][1]).toMatchSnapshot();
     });
-    fit('will not write snapshot when resource is image and replaceImage=false', async () => {
+    it('will not write snapshot when resource is image and replaceImage=false', async () => {
       const response = {
         ok: () => true,
         url: () => 'http://www.example.com/x.jpg?foo=bar',
@@ -72,7 +72,6 @@ describe('Recorder:', () => {
         on: jest.fn((type, fn) => fnList.push(fn)),
       };
       const modifiedConfig = ({ ...configuration, ...{ page, replaceImage: false } });
-      console.log(modifiedConfig);
       await recorder({ browser, config: modifiedConfig });
       // eslint-disable-next-line no-restricted-syntax, no-await-in-loop
       for (const fn of fnList) { await fn(response); }

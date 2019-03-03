@@ -13,7 +13,6 @@
     "check-types": "^7.4.0",
     "filenamify": "^2.1.0",
     "is-image": "^2.0.0",
-    "puppeteer": "^1.10.0",
     "type-detect": "^4.0.8",
     "url-parse": "^1.4.4"
   },
@@ -39,7 +38,8 @@
     "eslint-plugin-react": "7.11.0",
     "jest": "^23.5.0",
     "jest-cli": "^23.6.0",
-    "jsdoc": "^3.4.3"
+    "jsdoc": "^3.4.3",
+    "puppeteer": "^1.12.2"
   },
   "jest": {
     "rootDir": "src",

@@ -90,21 +90,30 @@ describe('Recorder:', () => {
         }),
         text: jest.fn(() => '{}'),
       };
-      const fnList = [];
+      const request = {
+        resourceType: jest.fn(() => 'image'),
+        respond: jest.fn(),
+        headers: jest.fn(() => ({})),
+      };
+      const responseFnList = [];
+      const requestFnList = [];
       const page = {
         setRequestInterception: jest.fn(),
-        on: jest.fn((type, fn) => fnList.push(fn)),
+        on: jest.fn((type, fn) => (type === 'response' ? responseFnList.push(fn) : requestFnList.push(fn))),
       };
       const browser = {
-        on: jest.fn((type, fn) => fnList.push(fn)),
+        on: jest.fn((type, fn) => responseFnList.push(fn)),
       };
       const modifiedConfig = ({ ...configuration, ...{ page, replaceImage: true } });
       await recorder({ browser, config: modifiedConfig });
       // eslint-disable-next-line no-restricted-syntax, no-await-in-loop
-      for (const fn of fnList) { await fn(response); }
+      for (const fn of responseFnList) { await fn(response); } for (const fn of requestFnList) { await fn(request); }
       expect(page.on).toHaveBeenCalledWith('response', expect.any(Function));
       expect(response.text).not.toHaveBeenCalled();
       expect(fs.appendFileSync.mock.calls[0][1]).toMatchSnapshot();
+      expect(request.respond).toHaveBeenCalled();
+      expect(request.headers).toHaveBeenCalled();
+      expect(request.resourceType).toHaveBeenCalled();
     });
   });
   describe('on `response` multiple pages', () => {

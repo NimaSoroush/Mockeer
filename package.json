@@ -1,6 +1,6 @@
 {
   "name": "mockeer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "mocking puppeteer network calls",
   "main": "src/index.js",
   "keywords": [

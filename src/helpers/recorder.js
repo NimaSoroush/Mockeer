@@ -19,7 +19,7 @@ const handleRecordMode = async ({
   browser, config,
 }) => {
   const scopes = [];
-  const setRequestInterceptor = p => p.on('response', async (response) => {
+  const setResponseInterceptor = p => p.on('response', async (response) => {
     if (response.ok()) {
       const scope = {};
       const parsedUrl = parse(response.url(), true);
@@ -45,6 +45,22 @@ const handleRecordMode = async ({
     }
     return null;
   });
+
+  const setRequestInterceptor = async (p) => {
+    await p.setRequestInterception(true);
+    p.on('request', (request) => {
+      if (request.resourceType() === 'image') {
+        const response = {};
+        response.headers = request.headers();
+        response.body = config.svgTemplate;
+        response.headers['content-type'] = svgContentTypeHeader;
+        response.headers['content-length'] = svgContentLength;
+        return request.respond(response);
+      }
+      return request.continue();
+    });
+  };
+
   let fixtureSaved = false;
   const saveScopes = () => {
     fixtureSaved = true;
@@ -52,13 +68,15 @@ const handleRecordMode = async ({
     fs.appendFileSync(config.fixtureFilePath, JSON.stringify(reducedOutput));
   };
   if (config.page) {
-    setRequestInterceptor(config.page);
+    setResponseInterceptor(config.page);
+    if (config.replaceImage) setRequestInterceptor(config.page);
     config.page.on('close', () => {
       if (!fixtureSaved) { saveScopes(); }
     });
   } else {
     const pages = await getBrowserPages(browser);
-    pages.forEach(p => setRequestInterceptor(p));
+    pages.forEach(p => setResponseInterceptor(p));
+    if (config.replaceImage) pages.forEach(p => setRequestInterceptor(p));
   }
 
   browser.on('disconnected', () => {

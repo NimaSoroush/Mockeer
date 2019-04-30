@@ -1,7 +1,7 @@
 const check = require('check-types');
 const type = require('type-detect');
 const { globalConfig } = require('./config/defaultConfigs');
-const { getJestTestPath, getJestTestFolder } = require('./helpers/jest-helper');
+const { getJestTestPath, getJestTestFolder, isJest } = require('./helpers/jest-helper');
 const { getFixtureFile, getFixtureFolder } = require('./helpers/file-helper');
 
 const logError = (name, wrongType, correctType) => {
@@ -25,16 +25,19 @@ const sanitiseConfiguration = (conf) => {
 
   if (checkProperty(conf, 'fixturesDir', 'string')) {
     configuration.fixturesDir = conf.fixturesDir;
-  } else {
+  } else if (isJest()) {
     const fixtureFolder = getJestTestFolder();
     configuration.fixturesDir = getFixtureFolder(fixtureFolder, '__fixtures__') || globalConfig.fixturesDir;
+  } else {
+    configuration.fixturesDir = globalConfig.fixturesDir;
   }
 
   if (checkProperty(conf, 'fixtureName', 'string')) {
     configuration.fixtureFilePath = getFixtureFile(configuration.fixturesDir, conf.fixtureName);
+  } else if (isJest()) {
+    configuration.fixtureFilePath = getJestTestPath(configuration.fixturesDir);
   } else {
-    const fixtureFilePath = getJestTestPath(configuration.fixturesDir);
-    configuration.fixtureFilePath = fixtureFilePath || getFixtureFile(configuration.fixturesDir, globalConfig.fixtureName);
+    configuration.fixtureFilePath = getFixtureFile(configuration.fixturesDir, globalConfig.fixtureName);
   }
 
   configuration.svgTemplate = checkProperty(conf, 'svgTemplate', 'string')

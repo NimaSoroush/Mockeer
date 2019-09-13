@@ -40,6 +40,10 @@ const sanitiseConfiguration = (conf) => {
     configuration.fixtureFilePath = getFixtureFile(configuration.fixturesDir, globalConfig.fixtureName);
   }
 
+  configuration.replaceIfExists = checkProperty(conf, 'replaceIfExists', 'boolean')
+    ? conf.replaceIfExists
+    : globalConfig.replaceIfExists;
+
   configuration.svgTemplate = checkProperty(conf, 'svgTemplate', 'string')
     ? conf.svgTemplate
     : globalConfig.svgTemplate;

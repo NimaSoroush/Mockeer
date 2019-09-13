@@ -52,6 +52,10 @@ const sanitiseConfiguration = (conf) => {
     ? conf.allowImageRecourses
     : globalConfig.allowImageRecourses;
 
+  configuration.disallowedResourceTypes = checkProperty(conf, 'disallowedResourceTypes', 'array')
+    ? conf.disallowedResourceTypes
+    : globalConfig.disallowedResourceTypes;
+
   configuration.page = checkProperty(conf, 'page', 'object')
     ? conf.page
     : null;

@@ -6,6 +6,7 @@ const globalConfig = {
   svgTemplate,
   replaceImage: false,
   allowImageRecourses: false,
+  disallowedResourceTypes: [],
 };
 
 module.exports = { globalConfig };

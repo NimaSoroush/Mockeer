@@ -62,6 +62,7 @@ See [API.md](API.md) for full list of API calls
 |`fixturesDir`|`string`|no|Path to generated fixture files|`./__mockeer_fixture__`|
 |`fixtureName`|`string`|no|Path to generated fixture name|`chrome-http-mocks`|
 |`replaceImage`|`boolean`|no|Replace images with template image|false|
+|`replaceIfExists`|`boolean`|no|Replace fixtures even when they already recorded|true|
 |`allowImageRecourses`|`boolean`|no|If enabled image resources will be fetched from origin and not intercepted in play mode|false|
 |`svgTemplate`|`string`|no|A SVG image template that will replace images in the page|A solid gray svg image. Source [here](src/utils/svg-template.js)|
 

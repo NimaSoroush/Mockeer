@@ -32,7 +32,7 @@ describe('Mockeer', () => {
       const page = await browser.newPage();
       page.setViewport({ width: 0, height: 0 });
       await recorder(browser);
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await autoScroll(page);
       await page.close();
       await browser.close();
@@ -44,7 +44,7 @@ describe('Mockeer', () => {
       await recorder(browser, {
         replaceImage: true,
       });
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await page.close();
       await browser.close();
     }, 10000);
@@ -55,7 +55,7 @@ describe('Mockeer', () => {
       await recorder(browser, {
         allowImageRecourses: false,
       });
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await page.close();
       await browser.close();
     }, 10000);
@@ -66,7 +66,7 @@ describe('Mockeer', () => {
       await recorder(browser, {
         fixtureName: 'this is my custom test name',
       });
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await page.close();
       await browser.close();
     }, 10000);
@@ -77,7 +77,7 @@ describe('Mockeer', () => {
       await recorder(browser, {
         fixturesDir: './src/tests/integration/__fixtures__/custom-dir',
       });
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await page.close();
       await browser.close();
     }, 10000);
@@ -88,7 +88,7 @@ describe('Mockeer', () => {
       await recorder(browser, {
         svgTemplate: '<svg></svg>',
       });
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await autoScroll(page);
       await page.close();
       await browser.close();
@@ -101,8 +101,8 @@ describe('Mockeer', () => {
       await recorder(browser, {
         page: page2,
       });
-      await page1.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
-      await page2.goto('http://127.0.0.1:5500/src/tests/integration/mock-server//contact.html');
+      await page1.goto('http://127.0.0.1:8080/index.html');
+      await page2.goto('http://127.0.0.1:8080/contact.html');
       await autoScroll(page2);
       await page1.close();
       await page2.close();
@@ -114,9 +114,9 @@ describe('Mockeer', () => {
       const page2 = await browser.newPage();
       const page3 = await browser.newPage();
       await recorder(browser);
-      await page1.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
-      await page2.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/contact.html');
-      await page3.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/examples.html');
+      await page1.goto('http://127.0.0.1:8080/index.html');
+      await page2.goto('http://127.0.0.1:8080/contact.html');
+      await page3.goto('http://127.0.0.1:8080/examples.html');
       await page1.close();
       await page2.close();
       await page3.close();
@@ -132,7 +132,7 @@ describe('Mockeer', () => {
       const page = await browser.newPage();
       page.setViewport({ width: 0, height: 0 });
       await recorder(browser);
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await autoScroll(page);
       await page.close();
       await browser.close();
@@ -144,7 +144,7 @@ describe('Mockeer', () => {
       await recorder(browser, {
         replaceImage: true,
       });
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await page.close();
       await browser.close();
     }, 10000);
@@ -155,7 +155,7 @@ describe('Mockeer', () => {
       await recorder(browser, {
         allowImageRecourses: false,
       });
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await page.close();
       await browser.close();
     }, 10000);
@@ -166,7 +166,7 @@ describe('Mockeer', () => {
       await recorder(browser, {
         fixtureName: 'this is my custom test name',
       });
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await page.close();
       await browser.close();
     }, 10000);
@@ -177,7 +177,7 @@ describe('Mockeer', () => {
       await recorder(browser, {
         fixturesDir: './src/tests/integration/__fixtures__/custom-dir',
       });
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await page.close();
       await browser.close();
     }, 10000);
@@ -188,7 +188,7 @@ describe('Mockeer', () => {
       await recorder(browser, {
         svgTemplate: '<svg></svg>',
       });
-      await page.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
+      await page.goto('http://127.0.0.1:8080/index.html');
       await autoScroll(page);
       await page.close();
       await browser.close();
@@ -201,8 +201,8 @@ describe('Mockeer', () => {
       await recorder(browser, {
         page: page2,
       });
-      await page1.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
-      await page2.goto('http://127.0.0.1:5500/src/tests/integration/mock-server//contact.html');
+      await page1.goto('http://127.0.0.1:8080/index.html');
+      await page2.goto('http://127.0.0.1:8080/contact.html');
       await autoScroll(page2);
       await page1.close();
       await page2.close();
@@ -214,9 +214,9 @@ describe('Mockeer', () => {
       const page2 = await browser.newPage();
       const page3 = await browser.newPage();
       await recorder(browser);
-      await page1.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/index.html');
-      await page2.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/contact.html');
-      await page3.goto('http://127.0.0.1:5500/src/tests/integration/mock-server/examples.html');
+      await page1.goto('http://127.0.0.1:8080/index.html');
+      await page2.goto('http://127.0.0.1:8080/contact.html');
+      await page3.goto('http://127.0.0.1:8080/examples.html');
       await page1.close();
       await page2.close();
       await page3.close();

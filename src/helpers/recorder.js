@@ -36,6 +36,7 @@ const handleRecordMode = async ({
       scope.status = response.status();
       scope.method = response.request().method();
       const isImg = isImage(scope.fullPath);
+
       if (!isImg) {
         scope.body = await response.text();
         scopes.push(scope);
@@ -72,6 +73,7 @@ const handleRecordMode = async ({
     const reducedOutput = removeDuplicates(scopes);
     fs.appendFileSync(config.fixtureFilePath, JSON.stringify(reducedOutput));
   };
+
   if (config.page) {
     setResponseInterceptor(config.page);
     if (config.replaceImage) setRequestInterceptor(config.page);

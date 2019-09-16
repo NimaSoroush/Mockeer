@@ -15,8 +15,12 @@ const recorder = async (browser, configuration) => {
   if (!fs.existsSync(config.fixturesDir)) fs.mkdirSync(config.fixturesDir);
   const recorderMode = process.env.CI === 'true' ? MODES.PLAY : MODES.RECORD;
   if (isUpdate() || recorderMode === MODES.RECORD) {
-    if (fs.existsSync(config.fixtureFilePath)) fs.unlinkSync(config.fixtureFilePath);
-    return handleRecordMode({ browser, config });
+    const fileExists = fs.existsSync(config.fixtureFilePath);
+
+    if (config.replaceIfExists || !fileExists) {
+      if (fileExists) fs.unlinkSync(config.fixtureFilePath);
+      return handleRecordMode({ browser, config });
+    }
   }
 
   return handlePlayMode({ browser, config });

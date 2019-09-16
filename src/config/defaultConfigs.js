@@ -7,6 +7,7 @@ const globalConfig = {
   replaceImage: false,
   allowImageRecourses: false,
   disallowedResourceTypes: [],
+  replaceIfExists: true,
 };
 
 module.exports = { globalConfig };

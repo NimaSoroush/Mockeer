@@ -64,7 +64,11 @@ See [API.md](API.md) for full list of API calls
 |`replaceImage`|`boolean`|no|Replace images with template image|false|
 |`replaceIfExists`|`boolean`|no|Replace fixtures even when they already recorded|true|
 |`allowImageRecourses`|`boolean`|no|If enabled image resources will be fetched from origin and not intercepted in play mode|false|
+|`disallowedResourceTypes`|`array`|no|You can filter what type of requests and data you wanna mock into your fixtures creating a blacklist of [sourceTypes](https://pptr.dev/#?product=Puppeteer&version=v1.20.0&show=api-requestresourcetype) provided by Puppteer|[]|
 |`svgTemplate`|`string`|no|A SVG image template that will replace images in the page|A solid gray svg image. Source [here](src/utils/svg-template.js)|
+
+    : ['image', 'script', 'stylesheet']
+
 
 ## Links
 

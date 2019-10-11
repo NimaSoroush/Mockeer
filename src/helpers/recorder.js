@@ -22,6 +22,11 @@ const handleRecordMode = async ({
   const setResponseInterceptor = p => p.on('response', async (response) => {
     if (response.ok()) {
       const scope = {};
+      const resourceType = response.request().resourceType();
+      if (config.disallowedResourceTypes.includes(resourceType)) {
+        return scope;
+      }
+
       const parsedUrl = parse(response.url(), true);
       scope.url = response.url();
       scope.fullPath = `${parsedUrl.origin}${parsedUrl.pathname}`;

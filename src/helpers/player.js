@@ -32,9 +32,10 @@ const handlePlayMode = async ({ browser, config }) => {
   const setRequestInterceptor = async (p) => {
     await p.setRequestInterception(true);
     p.on('request', (request) => {
-      if (request.resourceType() === 'image' && config.allowImageRecourses) {
+      if (config.disallowedResourceTypes.includes(request.resourceType())) {
         return request.continue();
       }
+
       let response = getScope(request.url(), fixtures);
       if (!response) {
         const parsedUrl = parse(request.url(), true);
